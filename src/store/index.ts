@@ -29,7 +29,7 @@ export const useAppStore = create<AppState>()(
       resumes: [],
       applications: [],
       companies: [],
-      
+
       addJob: (job) => {
         const id = uuidv4();
         const now = new Date().toISOString();
@@ -38,7 +38,7 @@ export const useAppStore = create<AppState>()(
         }));
         return id;
       },
-      
+
       updateJob: (id, job) => {
         set((state) => ({
           jobs: state.jobs.map((j) =>
@@ -46,14 +46,14 @@ export const useAppStore = create<AppState>()(
           ),
         }));
       },
-      
+
       deleteJob: (id) => {
         set((state) => ({
           jobs: state.jobs.filter((j) => j.id !== id),
           applications: state.applications.filter((a) => a.jobId !== id),
         }));
       },
-      
+
       addResume: (resume) => {
         const id = uuidv4();
         const now = new Date().toISOString();
@@ -62,7 +62,7 @@ export const useAppStore = create<AppState>()(
         }));
         return id;
       },
-      
+
       updateResume: (id, resume) => {
         set((state) => ({
           resumes: state.resumes.map((r) =>
@@ -70,14 +70,14 @@ export const useAppStore = create<AppState>()(
           ),
         }));
       },
-      
+
       deleteResume: (id) => {
         set((state) => ({
           resumes: state.resumes.filter((r) => r.id !== id),
           applications: state.applications.filter((a) => a.resumeId !== id),
         }));
       },
-      
+
       addApplication: (application) => {
         const id = uuidv4();
         const now = new Date().toISOString();
@@ -86,7 +86,7 @@ export const useAppStore = create<AppState>()(
         }));
         return id;
       },
-      
+
       updateApplication: (id, application) => {
         set((state) => ({
           applications: state.applications.map((a) =>
@@ -94,13 +94,13 @@ export const useAppStore = create<AppState>()(
           ),
         }));
       },
-      
+
       deleteApplication: (id) => {
         set((state) => ({
           applications: state.applications.filter((a) => a.id !== id),
         }));
       },
-      
+
       addCompany: (company) => {
         const id = uuidv4();
         const now = new Date().toISOString();
@@ -109,7 +109,7 @@ export const useAppStore = create<AppState>()(
         }));
         return id;
       },
-      
+
       updateCompany: (id, company) => {
         set((state) => ({
           companies: state.companies.map((c) =>
@@ -117,7 +117,7 @@ export const useAppStore = create<AppState>()(
           ),
         }));
       },
-      
+
       deleteCompany: (id) => {
         set((state) => ({
           companies: state.companies.filter((c) => c.id !== id),
