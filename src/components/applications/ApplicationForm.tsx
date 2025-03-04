@@ -12,22 +12,22 @@ const ApplicationForm: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { applications, jobs, resumes, addApplication, updateApplication } = useAppStore();
-  
+
   const isEditing = Boolean(id);
   const application = isEditing ? applications.find(a => a.id === id) : null;
-  
+
   // Get jobId from query params if available
   const queryParams = new URLSearchParams(location.search);
   const preselectedJobId = queryParams.get('jobId');
-  
+
   const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<ApplicationFormData>({
     defaultValues: application ? {
       jobId: application.jobId,
       resumeId: application.resumeId,
       status: application.status,
-      appliedDate: application.appliedDate.split('T')[0],
-      followUpDate: application.followUpDate?.split('T')[0],
-      interviewDate: application.interviewDate?.split('T')[0],
+      appliedDate: application.appliedDate.split('T')[0], // Correct date formatting
+      followUpDate: application.followUpDate?.split('T')[0], // Correct date formatting
+      interviewDate: application.interviewDate?.split('T')[0], // Correct date formatting
       notes: application.notes,
     } : {
       jobId: preselectedJobId || '',
@@ -35,15 +35,15 @@ const ApplicationForm: React.FC = () => {
       appliedDate: new Date().toISOString().split('T')[0],
     }
   });
-  
+
   const selectedJobId = watch('jobId');
   const [selectedJob, setSelectedJob] = useState(jobs.find(j => j.id === selectedJobId));
-  
+
   useEffect(() => {
     const job = jobs.find(j => j.id === selectedJobId);
     setSelectedJob(job);
   }, [selectedJobId, jobs]);
-  
+
   const onSubmit = (data: ApplicationFormData) => {
     if (isEditing && application) {
       updateApplication(application.id, data);
@@ -53,7 +53,7 @@ const ApplicationForm: React.FC = () => {
       navigate(`/applications/${newApplicationId}`);
     }
   };
-  
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -71,7 +71,7 @@ const ApplicationForm: React.FC = () => {
           </h1>
         </div>
       </div>
-      
+
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
           <div className="md:grid md:grid-cols-3 md:gap-6">
@@ -108,7 +108,7 @@ const ApplicationForm: React.FC = () => {
                     </div>
                   )}
                 </div>
-                
+
                 <div className="col-span-6">
                   <label htmlFor="resumeId" className="block text-sm font-medium text-gray-700">
                     Resume
@@ -129,7 +129,7 @@ const ApplicationForm: React.FC = () => {
                     <p className="mt-1 text-sm text-red-600">{errors.resumeId.message}</p>
                   )}
                 </div>
-                
+
                 <div className="col-span-6">
                   <label htmlFor="status" className="block text-sm font-medium text-gray-700">
                     Status
@@ -147,7 +147,7 @@ const ApplicationForm: React.FC = () => {
                     <p className="mt-1 text-sm text-red-600">{errors.status.message}</p>
                   )}
                 </div>
-                
+
                 <div className="col-span-6 sm:col-span-3">
                   <label htmlFor="appliedDate" className="block text-sm font-medium text-gray-700">
                     Applied Date
@@ -162,7 +162,7 @@ const ApplicationForm: React.FC = () => {
                     <p className="mt-1 text-sm text-red-600">{errors.appliedDate.message}</p>
                   )}
                 </div>
-                
+
                 <div className="col-span-6 sm:col-span-3">
                   <label htmlFor="followUpDate" className="block text-sm font-medium text-gray-700">
                     Follow-up Date (Optional)
@@ -174,7 +174,7 @@ const ApplicationForm: React.FC = () => {
                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
-                
+
                 <div className="col-span-6">
                   <label htmlFor="interviewDate" className="block text-sm font-medium text-gray-700">
                     Interview Date (Optional)
@@ -186,7 +186,7 @@ const ApplicationForm: React.FC = () => {
                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
-                
+
                 <div className="col-span-6">
                   <label htmlFor="notes" className="block text-sm font-medium text-gray-700">
                     Notes (Optional)
@@ -203,7 +203,7 @@ const ApplicationForm: React.FC = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="flex justify-end">
           <button
             type="button"
